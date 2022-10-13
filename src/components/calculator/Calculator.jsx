@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 import './Calculator.css'
 
-export default class Calculator extends Component {
+
+
+export default class Counter extends Component {
+    render() {
+        return (
+            <div>
+                <Calculator by={1} />
+                <Calculator by={5} />
+                <Calculator by={10} />
+            </div>
+        )
+    }
+}
+
+
+class Calculator extends Component {
     constructor() {
         super();
         this.state = {
@@ -36,7 +51,6 @@ export default class Calculator extends Component {
     render() {
         return (
             <div className='counter'>
-                COUNTER :
                 <button className='button' onClick={this.increment}>{this.props.by}</button>
                 {/* <button className='button' onClick={this.decrement}>-1</button> */}
                 <span className='count'>{this.state.counter}</span>
