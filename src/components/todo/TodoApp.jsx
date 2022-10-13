@@ -4,7 +4,10 @@ export default class TodoApp extends Component {
     render() {
         return (
             <div>
-                <LoginComponent />
+                My Todo Application
+                <div>
+                    <LoginComponent />
+                </div>
             </div>
         )
     }
@@ -18,30 +21,39 @@ class LoginComponent extends Component {
             password: ""
         }
 
-        this.handleusernameChange = this.handleusernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        // this.handleusernameChange = this.handleusernameChange.bind(this);
+        // this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleChange = this.handleChange.bind(this)
 
     }
 
-    handleusernameChange(event) {
-        console.log(event.target.value);
-        this.setState({
-            username: event.target.value
-        })
-    }
+    // handleusernameChange(event) {
+    //     console.log(event.target.value);
+    //     this.setState({
+    //         username: event.target.value
+    //     })
+    // }
 
-    handlePasswordChange(event) {
-        console.log(event.target.value);
+    // handlePasswordChange(event) {
+    //     console.log(event.target.value);
+    //     this.setState({
+    //         password: event.target.value
+    //     })
+    // }
+
+    handleChange(event) {
+        console.log(event.target.name);
         this.setState({
-            password: event.target.value
+            [event.target.name]
+                : event.target.value
         })
     }
 
     render() {
         return (
             <div>
-                User Name: <input type="text" name='username' value={this.state.username} onChange={this.handleusernameChange} />
-                Password: <input type="password" name='password' value={this.state.password} onChange={this.handlePasswordChange} />
+                User Name: <input type="text" name='username' value={this.state.username} onChange={this.handleChange} />
+                Password: <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
                 <button>Login</button>
             </div>
         )
