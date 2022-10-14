@@ -27,23 +27,23 @@ class LoginComponent extends Component {
         this.loginClicked = this.loginClicked.bind(this)
 
     }
-    showInvalidCredentials(props) {
-        if (props.hasLoginFailed) {
-            return <div>Invalid credentials</div>
-        }
-        else {
-            return null
-        }
-    }
+    // showInvalidCredentials(props) {
+    //     if (props.hasLoginFailed) {
+    //         return <div>Invalid credentials</div>
+    //     }
+    //     else {
+    //         return null
+    //     }
+    // }
 
-    showLoginSuccessMessage(props) {
-        if (props.showSuccessMessage) {
-            return <div>Login Successful</div>
-        }
-        else {
-            return null
-        }
-    }
+    // showLoginSuccessMessage(props) {
+    //     if (props.showSuccessMessage) {
+    //         return <div>Login Successful</div>
+    //     }
+    //     else {
+    //         return null
+    //     }
+    // }
 
 
     handleChange(event) {
@@ -84,8 +84,10 @@ class LoginComponent extends Component {
     render() {
         return (
             <div>
-                <this.showInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} />
-                <this.showLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage} />
+                {/* <this.showInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} /> */}
+                {this.state.hasLoginFailed && <div>Invalid credentials</div>}
+                {/* <this.showLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage} /> */}
+                {this.state.showSuccessMessage && <div>Login Successful</div>}
                 User Name: <input type="text" name='username' value={this.state.username} onChange={this.handleChange} />
                 Password: <input type="password" name='password' value={this.state.password} onChange={this.handleChange} />
                 <button onClick={this.loginClicked}>Login</button>
