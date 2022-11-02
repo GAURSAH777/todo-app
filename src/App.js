@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import './bootstrap.css';
 // import Counter from './components/calculator/Calculator';
 import TodoApp from './components/todo/TodoApp';
 // import Calculator from './components/calculator/Calculator';
