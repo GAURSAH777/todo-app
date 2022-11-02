@@ -1,15 +1,32 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 export default class TodoApp extends Component {
     render() {
         return (
             <div>
                 {/* My Todo Application */}
-                <div>
-                    <LoginComponent />
-                </div>
+                {/* <div> */}
+                <Router>
+                    <Routes>
+                        <Route exact path='/login' element={< LoginComponent />} />
+                        <Route exact path='/welcome' element={< WelcomeComponent />} />
+                    </Routes>
+                </Router>
+                {/* <LoginComponent />
+                    <WelcomeComponent/> */}
+                {/* </div> */}
             </div>
         )
+    }
+}
+
+class WelcomeComponent extends Component {
+    render() {
+        return (
+            <div>Welcome Gaurab</div>
+        )
+
     }
 }
 
