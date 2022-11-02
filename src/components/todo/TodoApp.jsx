@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 
 export default class TodoApp extends Component {
     render() {
@@ -8,10 +8,14 @@ export default class TodoApp extends Component {
                 {/* My Todo Application */}
                 {/* <div> */}
                 <Router>
+                    <HeaderComponent />
                     <Routes>
+                        <Route exact path='*' element={< ErrorComponent />} />
                         <Route exact path='/login' element={< LoginComponent />} />
                         <Route exact path='/welcome' element={< WelcomeComponent />} />
+                        <Route exact path='/todo' element={< TodoComponent />} />
                     </Routes>
+                    <FooterComponent />
                 </Router>
                 {/* <LoginComponent />
                     <WelcomeComponent/> */}
@@ -21,14 +25,90 @@ export default class TodoApp extends Component {
     }
 }
 
+class HeaderComponent extends Component {
+    render() {
+        return (
+            <div>
+                Header<hr />
+            </div>
+        )
+    }
+}
+
+class FooterComponent extends Component {
+    render() {
+        return (
+            <div>
+                <hr /> Footer
+            </div>
+        )
+    }
+}
+
 class WelcomeComponent extends Component {
     render() {
         return (
-            <div>Welcome Gaurab</div>
+            <div>Welcome Gaurab,
+                Click <Link to={`/todo`}>here </Link> to manage Todos App.
+            </div>
         )
 
     }
 }
+
+function ErrorComponent() {
+    return (
+        <div>Page Not Found</div>
+    )
+}
+
+
+class TodoComponent extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            todos:
+                [
+                    { id: 1, description: "Learn React", done: false, targetDate: new Date() },
+                    { id: 2, description: "Learn HTML", done: false, targetDate: new Date() },
+                    { id: 3, description: "Learn CSS", done: false, targetDate: new Date() },
+                    { id: 4, description: "Learn JS", done: false, targetDate: new Date() }
+                ]
+        }
+    }
+    render() {
+        return (
+            <div>
+                <h1>List todos</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>description</th>
+                            <th>Is Completed?</th>
+                            <th>Target Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.state.todos.map(
+                                todo =>
+                                    <tr>
+                                        <td>{todo.id}</td>
+                                        <td>{todo.description}</td>
+                                        <td>{todo.done.toString()}</td>
+                                        <td>{todo.targetDate.toString()}</td>
+                                    </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        )
+    }
+}
+
 
 class LoginComponent extends Component {
     constructor(props) {
