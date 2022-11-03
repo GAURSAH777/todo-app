@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import AuthenticatedRoute from './AuthenticatedRoute.jsx';
 import AuthenticationService from './AuthenticationService.js'
 
 export default class TodoApp extends Component {
@@ -12,10 +13,11 @@ export default class TodoApp extends Component {
                     <HeaderComponent />
                     <Routes>
                         <Route exact path='*' element={< ErrorComponent />} />
+                        <Route exact path='/' element={< LoginComponent />} />
                         <Route exact path='/login' element={< LoginComponent />} />
-                        <Route exact path='/welcome' element={< WelcomeComponent />} />
-                        <Route exact path='/todo' element={< TodoComponent />} />
-                        <Route exact path='/logout' element={< LogoutComponent />} />
+                        <Route exact path='/welcome' element={<AuthenticatedRoute>< WelcomeComponent /></AuthenticatedRoute>} />
+                        <Route exact path='/todo' element={<AuthenticatedRoute>< TodoComponent /></AuthenticatedRoute>} />
+                        <Route exact path='/logout' element={<AuthenticatedRoute>< LogoutComponent /></AuthenticatedRoute>} />
                     </Routes>
                     <FooterComponent />
                 </Router>
