@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import AuthenticationService from './AuthenticationService.js'
 
 export default class TodoApp extends Component {
     render() {
@@ -28,17 +29,19 @@ export default class TodoApp extends Component {
 
 class HeaderComponent extends Component {
     render() {
+        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+        // console.log(isUserLoggedIn);
         return (
             <header>
                 <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
                     <div><a href='http://www.in28minutes.com' className='navbar-brand'>in28minutes</a></div>
                     <ul className='narbar-nav'>
-                        <li ><Link className='nav-link' to={`/welcome`}>Home</Link></li>
-                        <li ><Link className='nav-link' to={`/todo`}>Todos</Link></li>
+                        {isUserLoggedIn && <li ><Link className='nav-link' to={`/welcome`} style={{ color: "white" }}>Home</Link></li>}
+                        {isUserLoggedIn && <li ><Link className='nav-link' to={`/todo`} style={{ color: "white" }}>Todos</Link></li>}
                     </ul>
                     <ul className='narbar-nav navbar-collapse justify-content-end'>
-                        <li ><Link className='nav-link' to={`/login`}>Login</Link></li>
-                        <li ><Link className='nav-link' to={`/logout`}>LogOut</Link></li>
+                        {!isUserLoggedIn && <li ><Link className='nav-link' to={`/login`} style={{ color: "white", position: 'sticky' }}>Login</Link></li>}
+                        {isUserLoggedIn && <li ><Link className='nav-link' to={`/logout`} style={{ color: "white", position: 'sticky' }} onClick={AuthenticationService.logout}>LogOut</Link></li>}
                     </ul>
                 </nav>
             </header>
@@ -124,7 +127,7 @@ class TodoComponent extends Component {
                             {
                                 this.state.todos.map(
                                     todo =>
-                                        <tr>
+                                        <tr key={todo.id}>
                                             {/* <td>{todo.id}</td> */}
                                             <td>{todo.description}</td>
                                             <td>{todo.done.toString()}</td>
@@ -187,6 +190,7 @@ class LoginComponent extends Component {
         // console.log(this.state);
         if (this.state.username === 'gaurab' && this.state.password === 'gaurab123') {
             // console.log("Login Successful");
+            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
             this.setState({
                 showSuccessMessage: true
             })
