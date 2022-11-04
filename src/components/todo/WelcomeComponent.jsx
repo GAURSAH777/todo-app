@@ -11,6 +11,7 @@ class WelcomeComponent extends Component {
         }
 
         this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
+        this.handleError = this.handleError.bind(this)
     }
 
     retriveWelcome() {
@@ -18,11 +19,18 @@ class WelcomeComponent extends Component {
         HelloWorldService.executeHelloWorldService().then(
             response => this.handleSuccessfulResponse(response)
         )
+            .catch(error => this.handleError(error))
     }
 
     handleSuccessfulResponse(response) {
         this.setState({
             welcomeMessage: response.data
+        })
+    }
+
+    handleError(error) {
+        this.setState({
+            welcomeMessage: error.response.data.message
         })
     }
     render() {
